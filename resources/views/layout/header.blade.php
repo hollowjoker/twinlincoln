@@ -13,7 +13,13 @@
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
                 <a class="nav-link" href="index.html">
-                    <i class="fa fa-fw fa-dashboard"></i>
+                    <i class="fa fa-plus-square"></i>
+                    <span class="nav-link-text">Add Product</span>
+                </a>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                <a class="nav-link" href="index.html">
+                    <i class="fa fa-cubes"></i>
                     <span class="nav-link-text">Inventory</span>
                 </a>
             </li>
@@ -27,7 +33,9 @@
         </ul>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a href="" class="nav-link">List</a>
+                <a href="" class="nav-link">
+                    <i class="fa fa-shopping-cart"></i>
+                </a>
             </li>
             <li class="nav-item">
                 <a href="" class="nav-link">Logout</a>
