@@ -12,17 +12,7 @@
 */
 
 Route::get('/', function () {
-    // $task = [
-    //     'sample1',
-    //     'sample2',
-    //     'sample3'
-    // ];
-    // $list = DB::table('book')->get();
-    // return $list;
-    // return view('pages/list',compact('list'));
-
     return redirect('/dashboard');
-
 });
 
 Route::get('/dashboard','DashboardController@index')->name('dashboard');
@@ -33,3 +23,7 @@ Route::post('/dashboard/attendanceSave'.'DashboardController@attendanceSave')->n
 Route::get('/category','CategoryController@index')->name('category');
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

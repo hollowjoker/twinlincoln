@@ -77,3 +77,7 @@
 		</div>
 	</div>
 @stop
+
+@section('pageJs')
+	<script src="{!! asset('sbadmin/js/sb-admin-charts.js') !!}"></script>
+@stop

@@ -48,8 +48,13 @@
                     <i class="fa fa-shopping-cart"></i>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="" class="nav-link">Good Morning Admin!</a>
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Good Morning Admin!
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
+                    <a class="dropdown-item" href="#">Logout</a>
+                </div>
             </li>
         </ul>
     </div>
@@ -94,11 +99,11 @@
 </div>
 
 @section('pageJs')
-    <script>
+    <!-- <script>
         $(function(){
             $('.openTimein').on('click',function(){
                 $('#timeInModal').modal();
             });
         });
-    </script>
+    </script> -->
 @stop

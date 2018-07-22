@@ -23,14 +23,13 @@
 
     <script src="{!! asset('js/app.js') !!}"></script>
 
-    <script src="{!! asset('sbadmin/vendor/bootstrap/js/bootstrap.bundle.min.js') !!}"></script>
+    <!-- <script src="{!! asset('sbadmin/vendor/bootstrap/js/bootstrap.bundle.min.js') !!}"></script> -->
     <script src="{!! asset('sbadmin/vendor/jquery-easing/jquery.easing.min.js') !!}"></script>
     <script src="{!! asset('sbadmin/vendor/chart.js/Chart.min.js') !!}"></script>
     <script src="{!! asset('sbadmin/vendor/datatables/jquery.dataTables.js') !!}"></script>
     <script src="{!! asset('sbadmin/vendor/datatables/dataTables.bootstrap4.js') !!}"></script>
     <script src="{!! asset('sbadmin/js/sb-admin.min.js') !!}"></script>
     <script src="{!! asset('sbadmin/js/sb-admin-datatables.min.js') !!}"></script>
-    <script src="{!! asset('sbadmin/js/sb-admin-charts.js') !!}"></script>
 
     @yield('pageJs')
 </html>
