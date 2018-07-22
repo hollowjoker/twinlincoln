@@ -12,13 +12,13 @@
                 </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{ route('product') }}">
                     <i class="fa fa-fw fa-plus-square"></i>
                     <span class="nav-link-text">Add Product</span>
                 </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{ route('inventory') }}">
                     <i class="fa fa-fw fa-cubes"></i>
                     <span class="nav-link-text">Inventory</span>
                 </a>
