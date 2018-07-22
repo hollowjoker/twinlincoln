@@ -53,7 +53,7 @@
                     Good Morning Admin!
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
-                    <a class="dropdown-item" href="#">Logout</a>
+                    <a class="dropdown-item" href=" {{ route('login.logout') }} ">Logout</a>
                 </div>
             </li>
         </ul>

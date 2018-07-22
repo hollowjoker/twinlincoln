@@ -12,18 +12,32 @@
 */
 
 Route::get('/', function () {
-    return redirect('/dashboard');
+    if(Auth::guard('admin')->check()){
+        return redirect('/dashboard');
+    }
+    else{
+        return redirect('/login');
+    }
 });
 
-Route::get('/dashboard','DashboardController@index')->name('dashboard');
+Route::group(['prefix' => '/dashboard', 'middleware' => ['web'], 'guard'=>'admin'], function(){
 
-Route::post('/dashboard/attendanceSave'.'DashboardController@attendanceSave')->name('dashboard.attendance_save');
+    Route::get('/','DashboardController@index')->name('dashboard');
+
+    Route::post('/attendanceSave'.'DashboardController@attendanceSave')->name('dashboard.attendance_save');
+
+});
 
 // category
 Route::get('/category','CategoryController@index')->name('category');
 
 
 
-Auth::routes();
+// Auth::routes();
+// Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['prefix' => '/login', 'middleware' => ['web']], function(){
+    Route::get('/','Auth\LoginController@index')->name('login');
+    Route::post('/post','Auth\LoginController@post')->name('login.post');
+    Route::get('/logout','Auth\LoginController@logout')->name('login.logout');
+});
