@@ -9,12 +9,14 @@
         <link rel="stylesheet" href="{!! asset('sbadmin/vendor/font-awesome/css/font-awesome.min.css')!!}" >
         <link rel="stylesheet" href="{!! asset('sbadmin/vendor/datatables/dataTables.bootstrap4.css')!!}" >
         <link rel="stylesheet" href="{!! asset('sbadmin/css/sb-admin.min.css') !!}">
+        <link rel="stylesheet" href="{!! asset('css/style-me.css') !!}">
+        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/twinlincoln_icon.png') }}" />
         <title>Twinlincoln</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     </head>
-    <body class="fixed-nav sticky-footer bg-dark" id="page-top">
+    <body class="fixed-nav bg-dark" id="page-top">
         @include('layout.header')
         {{-- @yield('content') --}}
     </body>
@@ -28,5 +30,7 @@
     <script src="{!! asset('sbadmin/vendor/datatables/dataTables.bootstrap4.js') !!}"></script>
     <script src="{!! asset('sbadmin/js/sb-admin.min.js') !!}"></script>
     <script src="{!! asset('sbadmin/js/sb-admin-datatables.min.js') !!}"></script>
-    <!-- <script src="{!! asset('sbadmin/js/sb-admin-charts.min.js') !!}"></script> -->
+    <script src="{!! asset('sbadmin/js/sb-admin-charts.js') !!}"></script>
+
+    @yield('pageJs')
 </html>
