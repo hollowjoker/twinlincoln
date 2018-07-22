@@ -1,3 +1,9 @@
 .content-wrapper{
 	background-color: #f7f7f7;
 }
+.table-heading th {
+	font-size: .8rem;
+}
+.card-body-icon .fa {
+	color: #f5a557;
+}

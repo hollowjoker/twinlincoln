@@ -32,12 +32,11 @@ Route::group(['prefix' => '/dashboard', 'middleware' => ['web'], 'guard'=>'admin
 Route::get('/category','CategoryController@index')->name('category');
 
 
-
-// Auth::routes();
-// Route::get('/home', 'HomeController@index')->name('home');
-
 Route::group(['prefix' => '/login', 'middleware' => ['web']], function(){
     Route::get('/','Auth\LoginController@index')->name('login');
     Route::post('/post','Auth\LoginController@post')->name('login.post');
     Route::get('/logout','Auth\LoginController@logout')->name('login.logout');
 });
+
+Route::get('/inventory', 'InventoryController@index')->name('inventory');
+Route::get('/product', 'ProductController@index')->name('product');
