@@ -60,6 +60,6 @@ class LoginController extends Controller
 
     public function logout() {
         Auth::guard('admin')->logout();
-        // return redirect(\URL::previous());
+        return redirect('/');
     }
 }

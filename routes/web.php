@@ -20,23 +20,25 @@ Route::get('/', function () {
     }
 });
 
-Route::group(['prefix' => '/dashboard', 'middleware' => ['web'], 'guard'=>'admin'], function(){
-
-    Route::get('/','DashboardController@index')->name('dashboard');
-
-    Route::post('/attendanceSave'.'DashboardController@attendanceSave')->name('dashboard.attendance_save');
-
-});
-
-// category
-Route::get('/category','CategoryController@index')->name('category');
-
-
 Route::group(['prefix' => '/login', 'middleware' => ['web']], function(){
     Route::get('/','Auth\LoginController@index')->name('login');
     Route::post('/post','Auth\LoginController@post')->name('login.post');
     Route::get('/logout','Auth\LoginController@logout')->name('login.logout');
 });
 
+Route::group(['prefix' => '/dashboard', 'middleware' => ['web','admin'], 'guard'=>'admin'], function(){
+    
+    Route::get('/','DashboardController@index')->name('dashboard');
+
+    Route::post('/attendanceSave'.'DashboardController@attendanceSave')->name('dashboard.attendance_save');
+
+});
+
+
+// category
+Route::group(['prefix' => '/category', 'middleware' => ['web','admin'], 'guard' => 'admin'], function(){
+    Route::get('/{type?}','CategoryController@index')->name('category');
+    Route::post('/store','CategoryController@store')->name('category.store');
+});
 Route::get('/inventory', 'InventoryController@index')->name('inventory');
 Route::get('/product', 'ProductController@index')->name('product');

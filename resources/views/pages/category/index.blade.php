@@ -16,7 +16,7 @@
 								</button>
 							</div>
 							<div class="col-md-12">
-								<table class="table table-bordered table-striped">
+								<table class="table table-bordered table-striped" id="categoryTable">
 									<thead>
 										<tr>
 											<th>Name</th>
@@ -26,19 +26,6 @@
 											<th>Action</th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr>
-											<td>Lubricants</td>
-											<td>Lubricants, Oils</td>
-											<td>0</td>
-											<td>Active</td>
-											<td>
-												<a href="" class="btn btn-sm btn-info">
-													Deactivate
-												</a>
-											</td>
-										</tr>
-									</tbody>
 								</table>
 							</div>
 						</div>
@@ -51,21 +38,30 @@
 	<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
-				<form action="">
+				<form action="{{ route('category.store') }}" method="post" class="needs-validation" novalidate>
+					{{ csrf_field() }}
 					<div class="modal-header">
 						<h5 class="modal-title">Create Category</h5>
-						<button class="close" data-dismiss="modal">
+						<button class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<div class="modal-body">
-						<div class="form-group">
-							<label for="categoryName">Category Name</label>
-							<input type="text" name="categoryName" id="categoryName" class="form-control" required>
+						<div class="form-group has-danger">
+							<label for="category_name">Category Name</label>
+							<input type="text" name="category_name" id="category_name" class="form-control" required >
 						</div>
 						<div class="form-group">
-							<label for="for">Description</label>
-							<textarea name="for" id="for" class="form-control"></textarea>
+							<label for="type">Type</label>
+							<select name="type" id="type" class="form-control"  required >
+								<option selected disabled value=""> -- Select Type --</option>
+								<option value="bike">Bike</option>
+								<option value="motor">Motor</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="description">Description</label>
+							<textarea name="description" id="description" class="form-control"></textarea>
 						</div>
 					</div>
 					<div class="modal-footer text-right">
@@ -85,6 +81,52 @@
 			$('#categoryModal').on('shown.bs.modal', function () {
 				$('#categoryName').trigger('focus');
 			});
+			$('#categoryModal').on('hide.bs.modal', function () {
+				$('form')[0].reset();
+				$('#categoryTable').DataTable().destroy();
+				getData();
+			});
+
+			getData();
+
+			$('form').submit(function(){
+				var thisForm = $(this);
+				var formData = $(this).serialize();
+				$.ajax({
+					type	: 'post',
+					url		: $(this).attr('action'),
+					data	: formData
+				}).done(function(returnData){
+					if(returnData['type'] == 'success'){
+						removeValidation(thisForm);
+						swal('Good Job!',returnData['message'],returnData['type'],{
+							button: "Aww yiss!",
+						}).then((value) => {
+							$('#categoryModal').modal('hide');
+						});
+					}
+					else if(returnData['type'] == 'failed') {
+						var errors = returnData['message'];
+						applyValidation(thisForm,errors);
+					}
+				});
+				return false;
+			});
 		});
+
+		function getData(){
+			$('#categoryTable').DataTable({
+				processing : true,
+				serverSide : true,
+				responsive : true,
+                searching : true,
+				autoWidth : false,
+				ajax : {
+					url : 'category/api',
+				}
+				
+			});
+
+		}
 	</script>
 @stop
