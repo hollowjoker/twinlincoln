@@ -1,38 +1,42 @@
+<?php $a = URL::current(); ?>
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top" id="mainNav">
-    <a href="" class="navbar-brand">TwinLincoln</a>
+    <a href="" class="navbar-brand">
+        <i class="fa fa-motorcycle" aria-hidden="true"></i>
+        TwinLincoln
+    </a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"  aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+            <li class="nav-item <?= (strpos($a, 'dashboard') ? 'active' : '') ?>" data-toggle="tooltip" data-placement="right" title="Dashboard">
                 <a class="nav-link" href="{{ route('dashboard') }}">
                     <i class="fa fa-fw fa-dashboard"></i>
                     <span class="nav-link-text">Dashboard</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+            <li class="nav-item <?= (strpos($a, 'product') ? 'active' : '') ?>" data-toggle="tooltip" data-placement="right" title="Product">
                 <a class="nav-link" href="{{ route('product') }}">
                     <i class="fa fa-fw fa-plus-square"></i>
                     <span class="nav-link-text">Add Product</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+            <li class="nav-item <?= (strpos($a, 'inventory') ? 'active' : '') ?>" data-toggle="tooltip" data-placement="right" title="Inventory">
                 <a class="nav-link" href="{{ route('inventory') }}">
                     <i class="fa fa-fw fa-cubes"></i>
                     <span class="nav-link-text">Inventory</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+            <li class="nav-item <?= (strpos($a, 'category') ? 'active' : '') ?>" data-toggle="tooltip" data-placement="right" title="Category">
                 <a class="nav-link" href="{{ route('category') }} ">
                     <i class="fa fa-fw fa-plus-square"></i>
                     <span class="nav-link-text">Category</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+            <li class="nav-item <?= (strpos($a, 'expense') ? 'active' : '') ?>" data-toggle="tooltip" data-placement="right" title="Expense">
                 <a class="nav-link" href="{{ route('expense') }} ">
                     <!-- <i class="fa fa-fw fa-plus-square"></i> -->
-                    <i class="fa fa-fw icon-money"></i>
+                    <i class="fa fa-fw fa-money"></i>
                     <span class="nav-link-text">Expense</span>
                 </a>
             </li>

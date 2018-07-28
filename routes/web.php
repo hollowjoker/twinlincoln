@@ -42,6 +42,11 @@ Route::group(['prefix' => '/category', 'middleware' => ['web','admin'], 'guard' 
     Route::get('/show/{id}/{type?}','CategoryController@show')->name('category.show');
     Route::delete('/destroy/{id}','CategoryController@destroy')->name('category.destroy');
 });
+
+// expense
+Route::group(['prefix' => '/expense', 'middleware' => ['web','admin'], 'guard' => 'admin'], function(){
+    Route::get('/expense', 'ExpenseController@index')->name('expense');
+});
+
 Route::get('/inventory', 'InventoryController@index')->name('inventory');
 Route::get('/product', 'ProductController@index')->name('product');
-Route::get('/expense', 'ExpenseController@index')->name('expense');
