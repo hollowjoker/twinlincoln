@@ -29,6 +29,13 @@
                     <span class="nav-link-text">Category</span>
                 </a>
             </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                <a class="nav-link" href="{{ route('expense') }} ">
+                    <!-- <i class="fa fa-fw fa-plus-square"></i> -->
+                    <i class="fa fa-fw icon-money"></i>
+                    <span class="nav-link-text">Expense</span>
+                </a>
+            </li>
         </ul>
         <ul class="navbar-nav sidenav-toggler">
             <li class="nav-item">
