@@ -19,6 +19,7 @@ class CategoryController extends Controller
 
             $category = Tbl_category::where('category_name','like','%'.$search.'%')
                                     ->orWhere('description','like','%'.$search.'%')
+                                    ->orWhere('type','like','%'.$search.'%')
                                     ->orWhere('status','like','%'.$search.'%')
                                     ->offset($start)
                                     ->limit($length)
@@ -29,6 +30,7 @@ class CategoryController extends Controller
 
             foreach($category as $k => $each){
                 $data[$k][] = $each['category_name'];
+                $data[$k][] = $each['type'];
                 $data[$k][] = $each['description'];
                 $data[$k][] = 0;
                 $data[$k][] = $each['status'];
@@ -92,5 +94,17 @@ class CategoryController extends Controller
             echo json_encode($data);
             exit;
         }
+    }
+
+    public function destroy($id){
+        $data = [];
+        $delete = Tbl_category::where('id',$id);
+        $categoryName = $delete->get()[0]['category_name'];
+        $delete->delete();
+        if($delete){
+            $data['type'] = "success";
+            $data['message'] = "Item ".$categoryName." Deleted!";
+        }
+        return $data;
     }
 }

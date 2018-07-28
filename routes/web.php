@@ -40,7 +40,7 @@ Route::group(['prefix' => '/category', 'middleware' => ['web','admin'], 'guard' 
     Route::get('/{type?}','CategoryController@index')->name('category');
     Route::post('/store','CategoryController@store')->name('category.store');
     Route::get('/show/{id}/{type?}','CategoryController@show')->name('category.show');
-    // Route::delete('/show/{id}/{type?}','CategoryController@show')->name('category.show');
+    Route::delete('/destroy/{id}','CategoryController@destroy')->name('category.destroy');
 });
 Route::get('/inventory', 'InventoryController@index')->name('inventory');
 Route::get('/product', 'ProductController@index')->name('product');

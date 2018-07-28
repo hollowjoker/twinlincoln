@@ -20,6 +20,7 @@
 									<thead>
 										<tr>
 											<th>Name</th>
+											<th>Type</th>
 											<th>Description</th>
 											<th>Item Count</th>
 											<th>Status</th>
@@ -82,7 +83,7 @@
 			$('#categoryModal').on('shown.bs.modal', function () {
 				$('#categoryName').trigger('focus');
 			});
-			
+
 			$('#categoryModal').on('hide.bs.modal', function () {
 				$('form')[0].reset();
 				$('[name="id"]').val('');
@@ -135,7 +136,35 @@
 		}
 
 		function deleteCategory(id){
-			alert();
+			console.log(id);
+			swal({
+				title : 'Are you sure you want to delete this item?',
+				icon : 'warning',
+				buttons: ["Oh noez!", "Aww yiss!"],
+				dangerMode: true,
+			}).then((value) => {
+				console.log(value);
+				if(value){
+					$.ajax({
+						type: 'post',
+						data: {_method: 'delete'},
+						url : 'category/destroy/'+id,
+						headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+					}).done(function(returnData){
+						console.log(returnData);
+						swal('Good Job!',returnData['message'],returnData['type'],{
+							button: "Aww yiss!",
+						}).then((value) => {
+							$('#categoryTable').DataTable().destroy();
+							getData();
+						});
+					});
+				}
+			});
+		}
+
+		function isNumeric(n) {
+			return !isNaN(parseFloat(n)) && isFinite(n);
 		}
 
 		function editCategory(id){

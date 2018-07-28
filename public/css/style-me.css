@@ -17,3 +17,25 @@
 .card-body-icon .fa {
 	color: #f5a557;
 }
+.swal-overlay
+{
+	background: rgba(245,217,97,1);
+	background: -moz-linear-gradient(-45deg, rgba(245,217,97,1) 0%, rgba(254,156,136,0.45) 100%);
+	background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(245,217,97,1)), color-stop(100%, rgba(254,156,136,0.45)));
+	background: -webkit-linear-gradient(-45deg, rgba(245,217,97,1) 0%, rgba(254,156,136,0.45) 100%);
+	background: -o-linear-gradient(-45deg, rgba(245,217,97,1) 0%, rgba(254,156,136,0.45) 100%);
+	background: -ms-linear-gradient(-45deg, rgba(245,217,97,1) 0%, rgba(254,156,136,0.45) 100%);
+	background: linear-gradient(135deg, rgba(245,217,97,1) 0%, rgba(254,156,136,0.45) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5d961', endColorstr='#fe9c88', GradientType=1 );
+}
+.modal-header{
+	color: #fff;
+	background: rgba(245,217,97,1);
+	background: -moz-linear-gradient(-45deg, rgba(245,217,97,1) 0%, rgba(254,156,136,1) 100%);
+	background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(245,217,97,1)), color-stop(100%, rgba(254,156,136,1)));
+	background: -webkit-linear-gradient(-45deg, rgba(245,217,97,1) 0%, rgba(254,156,136,1) 100%);
+	background: -o-linear-gradient(-45deg, rgba(245,217,97,1) 0%, rgba(254,156,136,1) 100%);
+	background: -ms-linear-gradient(-45deg, rgba(245,217,97,1) 0%, rgba(254,156,136,1) 100%);
+	background: linear-gradient(135deg, rgba(245,217,97,1) 0%, rgba(254,156,136,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5d961', endColorstr='#fe9c88', GradientType=1 );
+}
