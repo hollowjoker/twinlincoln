@@ -42,3 +42,4 @@ Route::group(['prefix' => '/category', 'middleware' => ['web','admin'], 'guard' 
 });
 Route::get('/inventory', 'InventoryController@index')->name('inventory');
 Route::get('/product', 'ProductController@index')->name('product');
+Route::get('/expense', 'ExpenseController@index')->name('expense');
