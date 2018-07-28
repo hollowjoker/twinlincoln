@@ -350,6 +350,7 @@ class ComposerStaticInit0c2148fdd32ca76de7b21695d48263ba
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Library\\ClassFactory' => __DIR__ . '/../..' . '/app/Library/ClassFactory.php',
         'App\\Models\\Tbl_admin' => __DIR__ . '/../..' . '/app/Models/Tbl_admin.php',
         'App\\Models\\Tbl_category' => __DIR__ . '/../..' . '/app/Models/Tbl_category.php',
         'App\\Models\\Tbl_customer' => __DIR__ . '/../..' . '/app/Models/Tbl_customer.php',

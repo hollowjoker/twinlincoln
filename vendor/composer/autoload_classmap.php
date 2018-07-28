@@ -27,6 +27,7 @@ return array(
     'App\\Http\\Middleware\\TrimStrings' => $baseDir . '/app/Http/Middleware/TrimStrings.php',
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
+    'App\\Library\\ClassFactory' => $baseDir . '/app/Library/ClassFactory.php',
     'App\\Models\\Tbl_admin' => $baseDir . '/app/Models/Tbl_admin.php',
     'App\\Models\\Tbl_category' => $baseDir . '/app/Models/Tbl_category.php',
     'App\\Models\\Tbl_customer' => $baseDir . '/app/Models/Tbl_customer.php',
