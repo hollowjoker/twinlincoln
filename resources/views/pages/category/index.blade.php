@@ -50,6 +50,7 @@
 						<div class="form-group has-danger">
 							<label for="category_name">Category Name</label>
 							<input type="text" name="category_name" id="category_name" class="form-control" required >
+							<input type="hidden" name="id" class="form-control" >
 						</div>
 						<div class="form-group">
 							<label for="type">Type</label>
@@ -81,8 +82,10 @@
 			$('#categoryModal').on('shown.bs.modal', function () {
 				$('#categoryName').trigger('focus');
 			});
+			
 			$('#categoryModal').on('hide.bs.modal', function () {
 				$('form')[0].reset();
+				$('[name="id"]').val('');
 				$('#categoryTable').DataTable().destroy();
 				getData();
 			});
@@ -112,6 +115,8 @@
 				});
 				return false;
 			});
+
+			
 		});
 
 		function getData(){
@@ -124,9 +129,27 @@
 				ajax : {
 					url : 'category/api',
 				}
-				
 			});
-
+			
+			
 		}
+
+		function deleteCategory(id){
+			alert();
+		}
+
+		function editCategory(id){
+			$.ajax({
+				type : 'get',
+				url : 'category/show/'+id+'/api',
+			}).done(function(returnData){
+				$('#categoryModal').modal();
+				var parsedData = $.parseJSON(returnData);
+				$.each(parsedData, function(key,val){
+					$('[name="'+key+'"]').val(val);
+				});
+			});
+		}
+		
 	</script>
 @stop

@@ -33,7 +33,10 @@ class CategoryController extends Controller
                 $data[$k][] = 0;
                 $data[$k][] = $each['status'];
                 $data[$k][] = '
-                                <button type="button" class="btn btn-info btn-sm">
+                                <button type="button" class="btn btn-primary btn-sm editCategory" onclick="editCategory('.$each['id'].')">
+                                    Edit
+                                </button>
+                                <button type="button" class="btn btn-danger btn-sm deleteCategory" onclick="deleteCategory('.$each['id'].')" >
                                     Delete
                                 </button>
                                 ';
@@ -49,27 +52,45 @@ class CategoryController extends Controller
         }
         return view('pages/category/index');
     }
+
+
     public function store(Request $request) {
         $data = [];
         $validator = Validator::make($request->all(),[
             'category_name' => 'required',
             'type' => 'required',
         ]);
-
+        
         if($validator->fails()){
             $data['type'] = 'failed';
             $data['message'] = $validator->errors();
+
+            return $data;
         }
-        else{
+        
+        if($request->id == ''){
             Tbl_category::create([
                 'category_name' => $request->category_name,
                 'description' => $request->description,
                 'type' => $request->type,
             ]);
-            $data['type'] = 'success';
             $data['message'] = 'Creation of category successful!';
         }
+        else{
+            $update = Tbl_category::find($request->id);
+            $update->update($request->all());
+            $data['message'] = 'Updating of category successful!';
+        }
+        $data['type'] = 'success';
 
         return $data;
+    }
+
+    public function show($id,$type = null){
+        if($type == 'api'){
+            $data = Tbl_category::find($id);
+            echo json_encode($data);
+            exit;
+        }
     }
 }
