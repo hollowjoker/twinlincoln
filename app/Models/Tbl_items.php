@@ -12,8 +12,10 @@ class Tbl_items extends Model
     protected $fillable = [
         'category_id',
         'item_name',
+        'description',
         'qty',
-        'srp_prics',
+        'size',
+        'srp_price',
         'price',
     ];
 

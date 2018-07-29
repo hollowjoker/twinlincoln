@@ -78,8 +78,16 @@
                     data : formData,
                     type : 'post'
                 }).done(function(returnData){
-                    console.log(returnData);
-                    thisForm.addClass('was-validated');
+                    if(returnData['type'] == 'success'){
+                        swal('Good Job!',returnData['message'],returnData['type'],{
+							button: "Aww yiss!",
+						}, value => {
+                            window.location.replace(' {{ route("inventory") }} ');
+                        });
+                    }
+                    else{ 
+                        thisForm.addClass('was-validated');
+                    }
                 });
                 return false;
             });

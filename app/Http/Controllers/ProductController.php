@@ -49,30 +49,38 @@ class ProductController extends Controller
     public function store(Request $request){
 
         $data = [];
-        $validator = Validator::make($request->all(),[
-            // 'category_id' => 'required',
-            'item_name' => 'required',
-            'qty' => 'required',
-            'srp_price' => 'required',
-            'amount' => 'required',
-        ]);
+        $validations = [];
 
-        return $validator->errors();
+        foreach($request->item_name as $k => $each){
+            $validations['category_id.'.$k] = 'required|filled';
+            $validations['item_name.'.$k] = 'required|filled';
+            $validations['qty.'.$k] = 'required|filled';
+            $validations['price.'.$k] = 'required|filled';
+            $validations['srp_price.'.$k] = 'required|filled';
+            $validations['amount.'.$k] = 'required|filled';
+        }
+        $validator = Validator::make($request->all(),$validations);
+
         if($validator->fails()){
             $data['type'] = 'failed';
             $data['message'] = $validator->errors();
 
             return $data;
         }
-        // foreach(){
 
-        // }
-        // Tbl_category::create([
-        //     'category_name' => $request->category_name,
-        //     'description' => $request->description,
-        //     'type' => $request->type,
-        // ]);
-        // $data['message'] = 'Creation of category successful!';
+        foreach($request->category_id as $k => $each){
+            Tbl_items::create([
+                'category_id' => $each,
+                'item_name' => $request->item_name[$k],
+                'description' => $request->description[$k],
+                'qty' => $request->qty[$k],
+                'size' => $request->size[$k],
+                'srp_price' => $request->srp_price[$k],
+                'price' => $request->price[$k],
+            ]);
+        }
+        $data['type'] = 'success';
+        $data['message'] = 'Creation of category successful!';
 
         return $data;
     }
