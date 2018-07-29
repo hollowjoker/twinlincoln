@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-
-=======
 <?php $a = URL::current(); ?>
->>>>>>> 695c63fb0db8b7cb68293f00da62a2d17613c67a
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top" id="mainNav">
     <a href="" class="navbar-brand">
         <i class="fa fa-motorcycle" aria-hidden="true"></i>
