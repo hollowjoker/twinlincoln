@@ -9,8 +9,11 @@ use Validator;
 
 class ProductController extends Controller
 {
-    public function index($type = null) {
+    public function index() {
+        return view('pages/product/index');
+    }
 
+    public function create($type = null) {
         $category = CF::model('Tbl_category')->select('id','category_name')->get();
 
         if($type == 'add'){
@@ -43,7 +46,7 @@ class ProductController extends Controller
             echo $forAppend;
             exit;
         }
-        return view('pages/product/index', compact('category'));
+        return view('pages/product/create', compact('category'));
     }
 
     public function store(Request $request){
@@ -83,5 +86,9 @@ class ProductController extends Controller
         $data['message'] = 'Creation of category successful!';
 
         return $data;
+    }
+
+    public function edit() {
+        return view('pages/product/edit');
     }
 }
