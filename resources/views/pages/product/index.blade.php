@@ -1,140 +1,96 @@
 @extends('layout.master')
 @section('content')
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <h3>Products</h3>
-                        <span class="text-muted">Add of your Products</span>
+                        <h2>List of Products</h2>
+                        <span class="text-muted">text here....</span>
                         <hr>
-                        <form action=" {{ route('product.store') }} " class="needs-validation" novalidate>
-                            {{ csrf_field() }}
-                            <table class="table table-bordered table-striped table-heading">
-                                <thead>
-                                    <tr>
-                                        <td></td>
-                                        <td>Category</td>
-                                        <td>Item Name</td>
-                                        <td>Description</td>
-                                        <td>Size</td>
-                                        <td>Qty</td>
-                                        <td>Price</td>
-                                        <td>Srp_Price</td>
-                                        <td>Amount</td>
-                                        <td></td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td> <button type="button" class="btn btn-danger btn-sm delLine"><i class="fa fa-minus" aria-hidden="true"></i></button> </td>
-                                        <td>
-                                            <div class="form-group">
-                                                <select class="form-control form-control-sm" name="category_id[]" required>
-                                                    <option selected disabled value="">&dash;</option>
-                                                    @foreach($category as $each)
-                                                        <option value="{{ $each['id'] }}"> {{ $each['category_name'] }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td> <input class="form-control form-control-sm" type="text" name="item_name[]" placeholder="Item Name" required> </td>
-                                        <td> <textarea class="form-control form-control-sm" type="text" name="description[]" placeholder="Description"></textarea> </td>
-                                        <td> <input class="form-control form-control-sm" type="text" name="size[]" placeholder="Size"> </td>
-                                        <td> <input class="form-control form-control-sm compute" type="text" name="qty[]" placeholder="Qty" required> </td>
-                                        <td> <input class="form-control form-control-sm compute" type="text" name="price[]" placeholder="Price" required> </td>
-                                        <td> <input class="form-control form-control-sm" type="text" name="srp_price[]" placeholder="Srp" required> </td>
-                                        <td> <input class="form-control form-control-sm compute" type="text" name="amount[]" readonly placeholder="Amount" required> </td>
-                                        <td> <button type="button" class="btn btn-info btn-sm addLine"><i class="fa fa-plus" aria-hidden="true"></i></button> </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <button type="submit" Placeholder="Submit" class="btn btn-info mt-3">Submit</button>
-                        </form>
+                            <a href="{{ route('product.create') }}" class="btn btn-info">Add Product</a>
+                        <hr>
+
+                        <table class="table table-bordered table-striped table-heading">
+                            <thead>
+                                <tr>
+                                    <td>Category</td>
+                                    <td>Item Name</td>
+                                    <td>Description</td>
+                                    <td>Size</td>
+                                    <td>Qty</td>
+                                    <td>Price</td>
+                                    <td>Srp_Price</td>
+                                    <td>Amount</td>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <button class="btn-sm btn-info" data-toggle="modal" data-target="#importModal">Import</button>
+                                        <a href="{{ route('product.edit') }}">
+                                            <button class="btn-sm btn-success">
+                                                Edit
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-@stop
+    <div class="modal fade" id="importModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<form action="{{ route('category.store') }}" method="post" class="needs-validation" novalidate>
+					{{ csrf_field() }}
+					<div class="modal-header">
+						<h5 class="modal-title">Import</h5>
+						<button class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group has-danger">
+							<label for="category_name">Qty</label>
+							<input type="text" name="import_qty" id="import_qty" class="form-control" required >
+							<input type="hidden" name="id" class="form-control" >
+						</div>
+						<div class="form-group">
+							<label for="type">Price</label>
+							<input name="import_price" id="import_price" class="form-control">
+						</div>
+						<div class="form-group">
+							<label for="description">Srp Price</label>
+							<input type="text" name="import_srp_price" id="import_srp_price" class="form-control"></input>
+                        </div>
+                        <div class="form-group">
+							<label for="description">Amount</label>
+							<input type="text" name="import_amount" id="import_amount" class="form-control"></input>
+						</div>
+					</div>
+					<div class="modal-footer text-right">
+						<button class="btn btn-info" type="submit">
+							Submit Import
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 
-@section('pageJs')
-    <script>
-        $(function(){
-            $('#sidenavToggler').click();
-
-            addLine();
-            compute();
-            delLine();
-
-            $('form').submit(function(){
-                var thisForm = $(this);
-                var thisUrl = thisForm.attr('action');
-                var formData = thisForm.serialize();
-
-                $.ajax({
-                    url : thisUrl,
-                    data : formData,
-                    type : 'post'
-                }).done(function(returnData){
-                    if(returnData['type'] == 'success'){
-                        swal('Good Job!',returnData['message'],returnData['type'],{
-							button: "Aww yiss!",
-						}, value => {
-                            window.location.replace(' {{ route("inventory") }} ');
-                        });
-                    }
-                    else{ 
-                        thisForm.addClass('was-validated');
-                    }
-                });
-                return false;
-            });
-
-            
-        });
-
-        function checkNumeric(number){
-            return $.isNumeric(number) ? number : 0;
-        }
-
-        function addLine(){
-            $('.addLine').unbind('click');
-            $('.addLine').bind('click',function(){
-                $.ajax({
-                    url : '/product/add',
-                    type : 'get'
-                }).done(function(returnData){
-                    $('table tbody').append(returnData);
-                    addLine();
-                    compute();
-                    delLine();
-                });
-
-            });
-        }
-
-        function delLine(){
-            $('.delLine').unbind('click');
-            $('.delLine').bind('click',function(){
-                var length = $('table tbody').find('tr').length;
-                if(length > 1){
-                    $(this).closest('tr').remove();
-                }
-            });
-        }
-
-        function compute(){
-            $('.compute').unbind('keyup');
-            $('.compute').bind('keyup blur',function(){
-                var tr = $(this).closest('tr');
-                var totalAmount = checkNumeric(parseInt(tr.find('[name="amount"]').val()));
-                var qty = checkNumeric(parseInt(tr.find('[name="qty[]"]').val()));
-                var price = checkNumeric(parseInt(tr.find('[name="price[]"]').val()));
-                totalAmount += qty * price;
-                tr.find('[name="amount[]"]').val(totalAmount);
-            });
-        }
-    </script>
 @stop
