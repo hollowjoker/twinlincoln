@@ -64,7 +64,7 @@ class CategoryController extends Controller
         ]);
         
         if($validator->fails()){
-            $data['type'] = 'failed';
+            $data['type'] = 'error';
             $data['message'] = $validator->errors();
 
             return $data;
@@ -76,7 +76,7 @@ class CategoryController extends Controller
                 'description' => $request->description,
                 'type' => $request->type,
             ]);
-            $data['message'] = 'Creation of category successful!';
+            $data['message'] = 'Creating of category successful!';
         }
         else{
             $update = Tbl_category::find($request->id);

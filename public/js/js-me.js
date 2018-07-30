@@ -1,3 +1,7 @@
+$(function(){
+	$('.date').bootstrapMaterialDatePicker({ weekStart : 0, time: false, minDate : new Date() });
+});
+
 function applyValidation(thisForm,errors){
 
 	thisForm.addClass('was-validated');

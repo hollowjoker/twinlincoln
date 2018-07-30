@@ -4,9 +4,80 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Hash;
+
+use App\Library\ClassFactory as CF;
+
+use Validator;
+
 class ExpenseController extends Controller
 {
-    public function index() {
+    public function index(Request $request, $type = null) {
+        if($type == 'api'){
+            $data = [];
+            $search = $request->search['value'];
+            $start = $request->start;
+            $length = $request->length;
+
+            $expense = CF::model('Tbl_expense')
+                            ->join('Tbl_user','Tbl_user.id','Tbl_expense.tbl_user_id')
+                            ->select('Tbl_expense.*','Tbl_user.user_name')
+                            ->get();
+
+            echo json_encode($expense);
+            exit;
+        }
         return view('pages/expense/index');
+    }
+    
+    public function store(Request $request, $api = null) {
+        $data = [];
+
+        if($api == 'api'){            
+            $userData = CF::model('Tbl_user')
+                        ->select('id','password')
+                        ->get();
+
+            $userId = 0;
+            foreach($userData as $each){
+                if(Hash::check($request->user_password, $each['password']) == 1){
+                    $userId = $each['id'];   
+                }
+            }
+            if($userId == 0){
+                $data['type'] = 'error';
+                $data['message'] = 'Invalid password!';
+            }
+            else{
+                $data['type'] = 'success';
+                $data['message'] = $userId;
+            }
+                
+            return $data;
+        }
+        $validator = Validator::make($request->all(),[
+            'date_from' => 'filled',
+            'amount' => 'integer|filled',
+        ]);
+
+        if($validator->fails()){
+            $data['message'] = $validator->errors();
+            $data['type'] = 'error';
+
+            return $data;
+        }
+
+        CF::model('Tbl_expense')::create([
+            'tbl_user_id' => $request->user_id,
+            'amount' => $request->amount,
+            'date_from' => $request->date_from,
+            'description' => $request->description,
+        ]);
+        $data['message'] = 'Creating of category successful!';
+        $data['type'] = 'success';
+
+
+
+        return $data;
     }
 }

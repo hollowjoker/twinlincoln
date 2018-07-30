@@ -9,12 +9,14 @@
         <link rel="stylesheet" href="{!! asset('sbadmin/vendor/font-awesome/css/font-awesome.min.css')!!}" >
         <link rel="stylesheet" href="{!! asset('sbadmin/vendor/datatables/dataTables.bootstrap4.css')!!}" >
         <link rel="stylesheet" href="{!! asset('sbadmin/css/sb-admin.min.css') !!}">
+        <link rel="stylesheet" href="{!! asset('css/material-bootstrap-datepicker.css') !!}">
         <link rel="stylesheet" href="{!! asset('css/style-me.css') !!}">
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/twinlincoln_icon.png') }}" />
         <title>Twinlincoln</title>
-
+        
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body class="fixed-nav bg-dark" id="page-top">
         @include('layout.header')
@@ -25,6 +27,8 @@
 
     <!-- <script src="{!! asset('sbadmin/vendor/bootstrap/js/bootstrap.bundle.min.js') !!}"></script> -->
     <script src="{!! asset('sbadmin/vendor/jquery-easing/jquery.easing.min.js') !!}"></script>
+    <script src="{!! asset('js/moment.js') !!}"></script>
+    <script src="{!! asset('js/material-bootstrap-datetimepicker.js') !!}"></script>
     <script src="{!! asset('sbadmin/vendor/chart.js/Chart.min.js') !!}"></script>
     <script src="{!! asset('sbadmin/vendor/datatables/jquery.dataTables.js') !!}"></script>
     <script src="{!! asset('sbadmin/vendor/datatables/dataTables.bootstrap4.js') !!}"></script>

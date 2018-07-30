@@ -49,6 +49,7 @@ Route::get('/inventory', 'InventoryController@index')->name('inventory');
 
 // expense
 Route::group(['prefix' => '/expense', 'middleware' => ['web','admin'], 'guard' => 'admin'], function(){
-    Route::get('/', 'ExpenseController@index')->name('expense');
+    Route::get('/{type?}', 'ExpenseController@index')->name('expense');
+    Route::post('/store/{api?}', 'ExpenseController@store')->name('expense.store');
 });
 

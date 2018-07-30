@@ -128,7 +128,7 @@
                 searching : true,
 				autoWidth : false,
 				ajax : {
-					url : 'category/api',
+					url : '/category/api',
 				}
 			});
 			
