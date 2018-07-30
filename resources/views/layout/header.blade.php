@@ -16,10 +16,19 @@
                 </a>
             </li>
             <li class="nav-item <?= (strpos($a, 'product') ? 'active' : '') ?>" data-toggle="tooltip" data-placement="right" title="Product">
-                <a class="nav-link" href="{{ route('product') }}">
+                <!-- <a class="nav-link nav-link-collapse collapsed" href="{{ route('product') }} #collapseComponents" data-toggle="collapse" data-parent="#exampleAccordion"> -->
+                <a class="nav-link nav-link-collapse collapsed" href="#collapseComponents" data-toggle="collapse" data-parent="#exampleAccordion">
                     <i class="fa fa-fw fa-plus-square"></i>
-                    <span class="nav-link-text">Add Product</span>
+                    <span class="nav-link-text">Product</span>
                 </a>
+                <ul class="sidenav-second-level collapse" id="collapseComponents">
+                    <li>
+                        <a href="{{ route('product') }}">List Product</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('product.create') }}">Add Product</a>
+                    </li>
+                </ul>
             </li>
             <li class="nav-item <?= (strpos($a, 'inventory') ? 'active' : '') ?>" data-toggle="tooltip" data-placement="right" title="Inventory">
                 <a class="nav-link" href="{{ route('inventory') }}">
