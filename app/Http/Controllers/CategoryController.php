@@ -26,6 +26,9 @@ class CategoryController extends Controller
                                     ->get();
 
             $categoryCount = Tbl_category::where('category_name','like','%'.$search.'%')
+                                    ->orWhere('description','like','%'.$search.'%')
+                                    ->orWhere('type','like','%'.$search.'%')
+                                    ->orWhere('status','like','%'.$search.'%')
                                     ->get();
 
             foreach($category as $k => $each){
@@ -35,7 +38,7 @@ class CategoryController extends Controller
                 $data[$k][] = 0;
                 $data[$k][] = $each['status'];
                 $data[$k][] = '
-                                <button type="button" class="btn btn-primary btn-sm editCategory" onclick="editCategory('.$each['id'].')">
+                                <button type="button" class="btn btn-mild btn-sm editCategory" onclick="editCategory('.$each['id'].')">
                                     Edit
                                 </button>
                                 <button type="button" class="btn btn-danger btn-sm deleteCategory" onclick="deleteCategory('.$each['id'].')" >

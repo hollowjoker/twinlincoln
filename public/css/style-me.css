@@ -55,3 +55,10 @@
 .dtp div.dtp-picker-month{
 	color: #f1813a;
 }
+.btn-mild{
+	background-color: #663ab7;
+	color: #fff;
+}
+.btn-mild:hover{
+	background-color: #491f96;
+}

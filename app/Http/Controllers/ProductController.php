@@ -9,7 +9,65 @@ use Validator;
 
 class ProductController extends Controller
 {
-    public function index() {
+    public function index(Request $request, $type = null ) {
+        if($type == 'api'){
+            $data = [];
+            $search = $request->search['value'];
+            $start = $request->start;
+            $length = $request->length;
+
+            $products = CF::model('Tbl_items')
+                        ->select('Tbl_items.*','Tbl_categories.category_name')
+                        ->join('Tbl_categories','Tbl_categories.id','Tbl_items.tbl_category_id')
+                        ->where('Tbl_categories.category_name','like','%'.$search.'%')
+                        ->orWhere('Tbl_items.item_name','like','%'.$search.'%')
+                        ->orWhere('Tbl_items.description','like','%'.$search.'%')
+                        ->orWhere('Tbl_items.size','like','%'.$search.'%')
+                        ->orWhere('Tbl_items.price','like','%'.$search.'%')
+                        ->orWhere('Tbl_items.srp_price','like','%'.$search.'%')
+                        ->offset($start)
+                        ->limit($length)
+                        ->get();
+
+            $productsCount = CF::model('Tbl_items')
+                        ->select('Tbl_items.*','Tbl_categories.category_name')
+                        ->join('Tbl_categories','Tbl_categories.id','Tbl_items.tbl_category_id')
+                        ->where('Tbl_categories.category_name','like','%'.$search.'%')
+                        ->orWhere('Tbl_items.item_name','like','%'.$search.'%')
+                        ->orWhere('Tbl_items.description','like','%'.$search.'%')
+                        ->orWhere('Tbl_items.size','like','%'.$search.'%')
+                        ->orWhere('Tbl_items.price','like','%'.$search.'%')
+                        ->orWhere('Tbl_items.srp_price','like','%'.$search.'%')
+                        ->count();
+
+            foreach($products as $k => $each){
+                $data[$k][] = $each['category_name'];
+                $data[$k][] = $each['item_name'];
+                $data[$k][] = $each['description'];
+                $data[$k][] = $each['size'];
+                $data[$k][] = $each['qty'];
+                $data[$k][] = $each['price'];
+                $data[$k][] = $each['srp_price'];
+                $data[$k][] = '
+                                <button class="btn-sm btn-info" data-toggle="modal" data-target="#importModal">Import</button>
+                                <a href="/product/edit/'.$each['id'].'">
+                                    <button class="btn-sm btn-mild">
+                                        Edit
+                                    </button>
+                                </a>            
+                            ';
+            }
+
+            $json_data = array(
+                "draw" => intval($request->input('draw')),
+                "recordsTotal" => $productsCount,
+                "recordsFiltered" => $productsCount,
+                "data" => $data
+            );
+            echo json_encode($json_data);
+            exit;
+        }
+
         return view('pages/product/index');
     }
 
@@ -27,7 +85,7 @@ class ProductController extends Controller
                     <td> <button type="button" class="btn btn-danger btn-sm delLine"><i class="fa fa-minus" aria-hidden="true"></i></button> </td>
                     <td>
                         <div class="form-group">
-                            <select class="form-control form-control-sm" name="category_id[]" required>
+                            <select class="form-control form-control-sm" name="tbl_category_id[]" required>
                                 <option selected disabled value="">&dash;</option>
                                 '.$options.'
                             </select>
@@ -55,7 +113,7 @@ class ProductController extends Controller
         $validations = [];
 
         foreach($request->item_name as $k => $each){
-            $validations['category_id.'.$k] = 'required|filled';
+            $validations['tbl_category_id.'.$k] = 'required|filled';
             $validations['item_name.'.$k] = 'required|filled';
             $validations['qty.'.$k] = 'required|filled';
             $validations['price.'.$k] = 'required|filled';
@@ -71,15 +129,15 @@ class ProductController extends Controller
             return $data;
         }
 
-        foreach($request->category_id as $k => $each){
-            Tbl_items::create([
-                'category_id' => $each,
+        foreach($request->tbl_category_id as $k => $each){
+            CF::model('Tbl_items')->create([
+                'tbl_category_id' => $each,
                 'item_name' => $request->item_name[$k],
                 'description' => $request->description[$k],
                 'qty' => $request->qty[$k],
                 'size' => $request->size[$k],
                 'srp_price' => $request->srp_price[$k],
-                'price' => $request->price[$k],
+                'price' => $request->price[$k]
             ]);
         }
         $data['type'] = 'success';
@@ -88,7 +146,7 @@ class ProductController extends Controller
         return $data;
     }
 
-    public function edit() {
+    public function edit($id) {
         return view('pages/product/edit');
     }
 }

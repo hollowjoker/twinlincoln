@@ -29,7 +29,7 @@
             </li>
             <li class="nav-item <?= (strpos($a, 'category') ? 'active' : '') ?>" data-toggle="tooltip" data-placement="right" title="Category">
                 <a class="nav-link" href="{{ route('category') }} ">
-                    <i class="fa fa-fw fa-sitemap"></i>
+                    <i class="fa fa-fw fa-plus-square"></i>
                     <span class="nav-link-text">Category</span>
                 </a>
             </li>

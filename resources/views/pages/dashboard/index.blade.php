@@ -40,7 +40,7 @@
 						<div class="card-body-icon">
 							<i class="fa fa-fw fa-hand-o-down"></i>
 						</div>
-						<div class="mr-5">Php. <span class="h1">0</span></div>
+						<div class="mr-5">Php. <span class="h1 count" id="expenseCount"></span></div>
 					</div>
 					<a class="card-footer bg-white text-dark clearfix small z-1" href="#">
 						<span class="float-left">Expense for July</span>
@@ -80,4 +80,17 @@
 
 @section('pageJs')
 	<script src="{!! asset('sbadmin/js/sb-admin-charts.js') !!}"></script>
+	<script>
+		$(function(){
+			$.ajax({
+				url : '/dashboard/api',
+				type : 'get',
+			}).done(function(returnData){
+				var parsedData = $.parseJSON(returnData);
+				console.log(returnData);
+				$('#expenseCount').text(parsedData['expenseSum']);
+				countToValue();
+			});
+		});
+	</script>
 @stop

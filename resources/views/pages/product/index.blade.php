@@ -12,7 +12,7 @@
                             <a href="{{ route('product.create') }}" class="btn btn-info">Add Product</a>
                         <hr>
 
-                        <table class="table table-bordered table-striped table-heading">
+                        <table class="table table-bordered table-striped table-heading" id="productTable">
                             <thead>
                                 <tr>
                                     <td>Category</td>
@@ -22,11 +22,10 @@
                                     <td>Qty</td>
                                     <td>Price</td>
                                     <td>Srp_Price</td>
-                                    <td>Amount</td>
                                     <td></td>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <!-- <tbody>
                                 <tr>
                                     <td></td>
                                     <td></td>
@@ -39,13 +38,13 @@
                                     <td>
                                         <button class="btn-sm btn-info" data-toggle="modal" data-target="#importModal">Import</button>
                                         <a href="{{ route('product.edit') }}">
-                                            <button class="btn-sm btn-success">
+                                            <button class="btn-sm btn-mild">
                                                 Edit
                                             </button>
                                         </a>
                                     </td>
                                 </tr>
-                            </tbody>
+                            </tbody> -->
                         </table>
                     </div>
                 </div>
@@ -93,4 +92,21 @@
 		</div>
 	</div>
 
+@stop
+
+@section('pageJs')
+    <script>
+        $(function(){
+            $('#productTable').DataTable({
+                processing : true,
+                serverSide : true,
+                responsive : true,
+                searching : true,
+                autoWidth : false,
+                ajax : {
+                    url : '/product/api'
+                }
+            });
+        });
+    </script>
 @stop

@@ -30,7 +30,7 @@
                                         <td> <button type="button" class="btn btn-danger btn-sm delLine"><i class="fa fa-minus" aria-hidden="true"></i></button> </td>
                                         <td>
                                             <div class="form-group">
-                                                <select class="form-control form-control-sm" name="category_id[]" required>
+                                                <select class="form-control form-control-sm" name="tbl_category_id[]" required>
                                                     <option selected disabled value="">&dash;</option>
                                                     @foreach($category as $each)
                                                         <option value="{{ $each['id'] }}"> {{ $each['category_name'] }}</option>
@@ -78,11 +78,13 @@
                     data : formData,
                     type : 'post'
                 }).done(function(returnData){
+
+                    console.log(returnData);
                     if(returnData['type'] == 'success'){
                         swal('Good Job!',returnData['message'],returnData['type'],{
 							button: "Aww yiss!",
-						}, value => {
-                            window.location.replace(' {{ route("inventory") }} ');
+						}).then((value) =>  {
+                            window.location = ' {{ route("product") }} ';
                         });
                     }
                     else{ 

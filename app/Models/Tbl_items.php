@@ -10,7 +10,7 @@ class Tbl_items extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'category_id',
+        'tbl_category_id',
         'item_name',
         'description',
         'qty',

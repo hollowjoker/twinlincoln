@@ -27,7 +27,7 @@ Route::group(['prefix' => '/login', 'middleware' => ['web']], function(){
 });
 
 Route::group(['prefix' => '/dashboard', 'middleware' => ['web','admin'], 'guard'=>'admin'], function(){
-    Route::get('/','DashboardController@index')->name('dashboard');
+    Route::get('/{type?}','DashboardController@index')->name('dashboard');
     Route::post('/attendanceSave'.'DashboardController@attendanceSave')->name('dashboard.attendance_save');
 });
 
@@ -41,11 +41,11 @@ Route::group(['prefix' => '/category', 'middleware' => ['web','admin'], 'guard' 
 
 // product
 Route::group(['prefix' => '/product', 'middleware' => ['web','admin'], 'guard' => 'admin'],function(){
-    Route::get('/', 'ProductController@index')->name('product');
+    Route::get('/{type?}', 'ProductController@index')->name('product');
     Route::post('/store', 'ProductController@store')->name('product.store');
     Route::get('/create/{line?}', 'ProductController@create')->name('product.create');
     Route::get('/create', 'ProductController@create')->name('product.create');
-    Route::get('/edit', 'ProductController@edit')->name('product.edit');
+    Route::get('/edit/{id}', 'ProductController@edit')->name('product.edit');
     
 });
 

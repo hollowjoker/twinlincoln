@@ -20,11 +20,38 @@ class ExpenseController extends Controller
             $length = $request->length;
 
             $expense = CF::model('Tbl_expense')
-                            ->join('Tbl_user','Tbl_user.id','Tbl_expense.tbl_user_id')
-                            ->select('Tbl_expense.*','Tbl_user.user_name')
+                            ->join('Tbl_users','Tbl_users.id','Tbl_expenses.tbl_user_id')
+                            ->select('Tbl_expenses.*','Tbl_users.user_name')
+                            ->where('user_name','like','%'.$search.'%')
+                            ->orWhere('amount','like','%'.$search.'%')
+                            ->orWhere('description','like','%'.$search.'%')
+                            ->offset($start)
+                            ->limit($length)
+                            ->orderBy('id','DESC')
+                            ->get();
+            
+            $expenseCount = CF::model('Tbl_expense')
+                            ->join('Tbl_users','Tbl_users.id','Tbl_expenses.tbl_user_id')
+                            ->select('Tbl_expenses.*','Tbl_users.user_name')
+                            ->where('user_name','like','%'.$search.'%')
+                            ->orWhere('amount','like','%'.$search.'%')
+                            ->orWhere('description','like','%'.$search.'%')
                             ->get();
 
-            echo json_encode($expense);
+            foreach($expense as $k => $each){
+                $data[$k][] = date('F d, Y', strtotime($each['date_from']));
+                $data[$k][] = $each['amount'];
+                $data[$k][] = $each['description'];
+                $data[$k][] = $each['user_name'];
+                $data[$k][] = '';
+            }
+            $json_data = array(
+                "draw" => intval($request->input('draw')),
+                "recordsTotal" => count($expenseCount),
+                "recordsFiltered" => count($expenseCount),
+                "data" => $data
+            );
+            echo json_encode($json_data);
             exit;
         }
         return view('pages/expense/index');

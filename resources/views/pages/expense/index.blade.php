@@ -6,18 +6,25 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <h3>Expense</h3>
-                        <span class="text-muted">Put your expense here</span>
-                        <hr>
-                            <button class="btn btn-info" data-toggle="modal" data-target="#expenseModal">Add Expense</button>
+						<div class="row">
+							<div class="col-sm-8">
+								<h3>Expense</h3>
+								<span class="text-muted">Put your expense here</span>
+							</div>
+							<div class="col-sm-4 text-right">
+								<button class="btn btn-info btn-lg" data-toggle="modal" data-target="#expenseModal">Add Expense</button>
+							</div>
+						</div>
                         <hr>
                         <h3>List of Expense</h3>
                         <table class="table table-bordered table-striped" id="expenseTable">
                             <thead>
                                 <tr>
                                     <td>Date</td>
-                                    <td>Description</td>
                                     <td>Amount</td>
+                                    <td>Description</td>
+                                    <td>Transacted By</td>
+									<td>Action</td>
                                 </tr>
                             </thead>
                         </table>
@@ -74,8 +81,8 @@
 		$('.modal').on('hide.bs.modal', function () {
 			// $('form')[0].reset();
 			// $('[name="id"]').val('');
-			// $('#categoryTable').DataTable().destroy();
-			// getData();
+			$('#expenseTable').DataTable().destroy();
+			getData();
 		});
 
 		getData();
@@ -111,6 +118,7 @@
 								swal('Good Job!',result['message'],result['type'],{
 									button: "Aww yiss!",
 								});
+								getData();
 							}
 						});
 					}
@@ -137,10 +145,7 @@
 			searching : true,
 			autoWidth : false,
 			ajax : {
-				url : '/expense/api',
-				success : function(returnData){
-					console.log(returnData);
-				}
+				url : '/expense/api'
 			}
 		});
 	}

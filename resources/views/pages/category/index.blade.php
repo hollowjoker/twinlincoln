@@ -6,15 +6,19 @@
 			<div class="col-md-12">
 				<div class="card">
 					<div class="card-body">
-						<h3>Category List</h3>
-						<span class="text-muted">This list is showing all Category of your Items</span>
-						<hr>
 						<div class="row">
-							<div class="col-md-12 mb-3">
-								<button class="btn btn-info" data-toggle="modal" data-target="#categoryModal" >
+							<div class="col-sm-8">
+								<h3>Category List</h3>
+								<span class="text-muted">This list is showing all Category of your Items</span>
+							</div>
+							<div class="col-sm-4 text-right">
+								<button class="btn btn-info btn-lg" data-toggle="modal" data-target="#categoryModal" >
 									Add Category
 								</button>
 							</div>
+						</div>
+						<hr>
+						<div class="row">
 							<div class="col-md-12">
 								<table class="table table-bordered table-striped" id="categoryTable">
 									<thead>

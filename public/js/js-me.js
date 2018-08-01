@@ -1,7 +1,21 @@
 $(function(){
 	$('.date').bootstrapMaterialDatePicker({ weekStart : 0, time: false, minDate : new Date() });
-});
 
+	
+});
+function countToValue(){
+	$('.count').each(function () {
+		$(this).prop('Counter',0).animate({
+			Counter: $(this).text()
+		}, {
+			duration: 4000,
+			easing: 'swing',
+			step: function (now) {
+				$(this).text(Math.ceil(now));
+			}
+		});
+	});
+}
 function applyValidation(thisForm,errors){
 
 	thisForm.addClass('was-validated');
