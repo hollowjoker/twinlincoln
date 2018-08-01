@@ -23,15 +23,15 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>Sampe 1</td>
+                                    <td>Sampe 2</td>
+                                    <td>Sampe 3</td>
+                                    <td>Sampe 4</td>
+                                    <td>Sampe 5</td>
+                                    <td>Sampe 6</td>
                                     <td>
                                         <a href="" class="btn btn-sm btn-info">View</a>
-                                        <a href="" class="btn btn-sm btn-info">Add to Cart</a>
+                                        <a href="" class="btn btn-sm btn-info" data-toggle="modal" data-target="#addcartModal">Add to Cart</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -70,5 +70,33 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="addcartModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<form action="" method="post" class="needs-validation" novalidate>
+					{{ csrf_field() }}
+					<div class="modal-header">
+						<h5 class="modal-title">Add to Cart</h5>
+						<button class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group has-danger">
+							<label for="category_name">Quantity</label>
+							<input type="text" name="cart_qty" id="cart_qty" class="form-control" required >
+							<input type="hidden" name="id" class="form-control" >
+						</div>
+					</div>
+					<div class="modal-footer text-right">
+						<button class="btn btn-info" type="submit">
+							Submit
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 
 @stop
