@@ -10,11 +10,20 @@ use Validator;
 class ProductController extends Controller
 {
     public function index(Request $request, $type = null ) {
+        
         if($type == 'api'){
             $data = [];
             $search = $request->search['value'];
             $start = $request->start;
             $length = $request->length;
+            $columns = array(
+                        'category_name',
+                        'item_name',
+                        'description',
+                        'size',
+                        'price',
+                        'spr_price',
+                    );
 
             $products = CF::model('Tbl_items')
                         ->select('Tbl_items.*','Tbl_categories.category_name')
@@ -27,6 +36,7 @@ class ProductController extends Controller
                         ->orWhere('Tbl_items.srp_price','like','%'.$search.'%')
                         ->offset($start)
                         ->limit($length)
+                        ->orderBy($columns[$request->order[0]['column']],$request->order[0]['dir'])
                         ->get();
 
             $productsCount = CF::model('Tbl_items')
@@ -49,7 +59,7 @@ class ProductController extends Controller
                 $data[$k][] = $each['price'];
                 $data[$k][] = $each['srp_price'];
                 $data[$k][] = '
-                                <button class="btn-sm btn-info" data-toggle="modal" data-target="#importModal">Import</button>
+                                <button class="btn-sm btn-info" data-toggle="modal" data-target="#importModal" onclick="getProduct('.$each['id'].')">Import</button>
                                 <a href="/product/edit/'.$each['id'].'">
                                     <button class="btn-sm btn-mild">
                                         Edit
@@ -104,6 +114,7 @@ class ProductController extends Controller
             echo $forAppend;
             exit;
         }
+
         return view('pages/product/create', compact('category'));
     }
 
@@ -111,6 +122,9 @@ class ProductController extends Controller
 
         $data = [];
         $validations = [];
+
+        $lastId = CF::model('Tbl_item_imported_transaction')->limit(1)->orderBy('id','desc')->get();
+        $transcode = 'PC'.str_pad(str_replace("PC","",$lastId[0]['trans_code']) + 1, 6, '0', STR_PAD_LEFT);
 
         foreach($request->item_name as $k => $each){
             $validations['tbl_category_id.'.$k] = 'required|filled';
@@ -129,15 +143,27 @@ class ProductController extends Controller
             return $data;
         }
 
+        
+        
         foreach($request->tbl_category_id as $k => $each){
-            CF::model('Tbl_items')->create([
+            $tbl_item_id = CF::model('Tbl_items')->create([
                 'tbl_category_id' => $each,
                 'item_name' => $request->item_name[$k],
                 'description' => $request->description[$k],
                 'qty' => $request->qty[$k],
                 'size' => $request->size[$k],
                 'srp_price' => $request->srp_price[$k],
-                'price' => $request->price[$k]
+                'price' => $request->price[$k],
+                'total_item_buy' => $request->qty[$k],
+            ]);
+            
+            CF::model('Tbl_item_imported_transaction')->create([
+                'trans_code' => $transcode,
+                'tbl_item_id' => $tbl_item_id->id,
+                'qty' => $request->qty[$k],
+                'srp_price' => $request->srp_price[$k],
+                'price' => $request->price[$k],
+                'amount' => $request->amount[$k],
             ]);
         }
         $data['type'] = 'success';
@@ -147,6 +173,92 @@ class ProductController extends Controller
     }
 
     public function edit($id) {
-        return view('pages/product/edit');
+        $product = CF::model('Tbl_items')->find($id);
+        $category = CF::model('Tbl_category')->select('id','category_name')->get();
+        return view('pages/product/edit', compact('product','category'));
+    }
+
+    public function getProduct($id) {
+        $product = CF::model('Tbl_items')->where('id',$id)->get();
+        return $product;
+    }
+
+    public function update(Request $request) {
+        
+        $data = [];
+        $itemData = CF::model('Tbl_items')->find($request->id);
+        
+        $validator = Validator::make($request->all(),[
+            'id' => 'integer|filled|required',
+            'qty' => 'integer|filled|required',
+            'price' => 'numeric|filled|required',
+            'srp_price' => 'numeric|filled|required',
+            'amount' => 'numeric|filled|required',
+        ]);
+
+        if($validator->fails()){
+            $data['type'] = 'error';
+            $data['message'] = $validator->errors();
+        }
+        else{
+            $itemData['qty'] += $request->qty;
+
+            $itemData->update([
+                'qty' => $itemData['qty']
+            ]);
+
+            $lastTrans = CF::model('Tbl_item_imported_transaction')->max('trans_code');
+            $transcode = 'PC'.str_pad(str_replace("PC","",$lastTrans) + 1, 6, '0', STR_PAD_LEFT);
+
+            CF::model('Tbl_item_imported_transaction')->create([
+                'trans_code' => $transcode,
+                'tbl_item_id' => $itemData['id'],
+                'qty' => $request->qty,
+                'srp_price' => $request->srp_price,
+                'price' => $request->price,
+                'amount' => $request->amount,
+            ]);
+            
+            $data['type'] = 'success';
+            $data['message'] = 'Importing of product successful!';;
+        }
+        return $data;
+    }
+
+    public function updateAll(Request $request) {
+
+        $data = [];
+
+        $validator = Validator::make($request->all(),[
+            'tbl_category_id' => 'integer|required|filled',
+            'item_name' => 'required|filled',
+            'qty' => 'integer|required|filled',
+            'price' => 'numeric|required|filled',
+            'srp_price' => 'numeric|required|filled',
+            'amount' => 'numeric|required|filled',
+        ]);
+
+        if($validator->fails()){
+            $data['type'] = 'error';
+            $data['message'] = $validator->errors();
+        }
+        else{
+            $productData = CF::model('Tbl_items')->find($request->id);
+
+            $productData->update([
+                'category_id' => $request->category_id,
+                'item_name' => $request->item_name,
+                'description' => $request->description,
+                'size' => $request->size,
+                'price' => $request->price,
+                'srp_price' => $request->srp_price,
+            ]);
+            
+            $data['type'] = 'success';
+            $data['message'] = 'Editing of product Success!';
+
+        }
+
+        return $data;
     }
 }

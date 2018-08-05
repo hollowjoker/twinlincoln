@@ -30,3 +30,7 @@ function applyValidation(thisForm,errors){
 function removeValidation(thisForm){
 	thisForm.removeClass('was-validated');
 }
+
+function checkNumeric(number){
+	return $.isNumeric(number) ? number : 0;
+}

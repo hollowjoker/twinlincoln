@@ -79,14 +79,14 @@
 	$(function(){
 
 		$('.modal').on('hide.bs.modal', function () {
-			// $('form')[0].reset();
-			// $('[name="id"]').val('');
 			$('#expenseTable').DataTable().destroy();
 			getData();
 		});
 
 		getData();
-		$('form').submit(function(){
+		
+		$('form').unbind('submit');
+		$('form').bind('submit',function(){
 			var thisForm = $(this);
 			var formData = thisForm.serialize();
 			var thisUrl = thisForm.attr('action');

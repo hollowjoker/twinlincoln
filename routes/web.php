@@ -33,23 +33,27 @@ Route::group(['prefix' => '/dashboard', 'middleware' => ['web','admin'], 'guard'
 
 // category
 Route::group(['prefix' => '/category', 'middleware' => ['web','admin'], 'guard' => 'admin'], function(){
-    Route::get('/{type?}','CategoryController@index')->name('category');
     Route::post('/store','CategoryController@store')->name('category.store');
     Route::get('/show/{id}/{type?}','CategoryController@show')->name('category.show');
     Route::delete('/destroy/{id}','CategoryController@destroy')->name('category.destroy');
+    Route::get('/{type?}','CategoryController@index')->name('category');
 });
 
 // product
 Route::group(['prefix' => '/product', 'middleware' => ['web','admin'], 'guard' => 'admin'],function(){
-    Route::get('/{type?}', 'ProductController@index')->name('product');
     Route::post('/store', 'ProductController@store')->name('product.store');
     Route::get('/create/{line?}', 'ProductController@create')->name('product.create');
-    Route::get('/create', 'ProductController@create')->name('product.create');
     Route::get('/edit/{id}', 'ProductController@edit')->name('product.edit');
+    Route::get('/{type?}', 'ProductController@index')->name('product');
+    Route::get('/getProduct/{id}', 'ProductController@getProduct')->name('product.getProduct');
+    Route::patch('/update', 'ProductController@update')->name('product.update');
+    Route::patch('/updateAll', 'ProductController@updateAll')->name('product.updateAll');
     
 });
 
-Route::get('/inventory', 'InventoryController@index')->name('inventory');
+Route::group(['prefix' => '/inventory', 'middleware' => ['web','admin'], 'guard' => 'admin'], function(){
+    Route::get('/{type?}','InventoryController@index')->name('inventory');
+});
 
 // expense
 Route::group(['prefix' => '/expense', 'middleware' => ['web','admin'], 'guard' => 'admin'], function(){

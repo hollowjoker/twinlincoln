@@ -17,25 +17,24 @@
 								</button>
 							</div>
 						</div>
-						<hr>
-						<div class="row">
-							<div class="col-md-12">
-								<table class="table table-bordered table-striped" id="categoryTable">
-									<thead>
-										<tr>
-											<th>Name</th>
-											<th>Type</th>
-											<th>Description</th>
-											<th>Item Count</th>
-											<th>Status</th>
-											<th>Action</th>
-										</tr>
-									</thead>
-								</table>
-							</div>
-						</div>
 					</div>
 				</div>
+			</div>
+		</div>
+		<div class="card my-2">
+			<div class="card-body">
+				<table class="table table-borderless table-hover table-striped " id="categoryTable">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Type</th>
+							<th>Description</th>
+							<th>Item Count</th>
+							<th>Status</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+				</table>
 			</div>
 		</div>
 	</div>
@@ -97,7 +96,8 @@
 
 			getData();
 
-			$('form').submit(function(){
+			$('form').unbind('submit');
+			$('form').bind('submit',function(){
 				var thisForm = $(this);
 				var formData = $(this).serialize();
 				$.ajax({

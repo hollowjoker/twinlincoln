@@ -8,6 +8,9 @@
 	src : url(../fonts/Raleway-Light.ttf);
 	src : url(../fonts/Raleway-Medium.ttf);
 }
+table *{
+	transition : .1s;
+}
 .content-wrapper{
 	background-color: #f7f7f7;
 }
@@ -52,6 +55,9 @@
 	background-color: #f1813a;
 	color: #fff;
 }
+hr{
+	border-color: #f1813a;
+}
 .dtp div.dtp-picker-month{
 	color: #f1813a;
 }
@@ -61,4 +67,33 @@
 }
 .btn-mild:hover{
 	background-color: #491f96;
+}
+.table.dataTable{
+	border-collapse: collapse !important;
+}
+.table-borderless tbody+tbody, .table-borderless td, .table-borderless th, .table-borderless thead th{
+	border: 0;
+}
+.table-borderless thead th{
+	border-top: 2px solid #dee2e6;
+	border-bottom: 2px solid #dee2e6;
+}
+.has-danger-custom .form-control{
+	color: #dc3545;
+    background-color: #fff;
+    border-color: #dc3545;
+    outline: 0;
+    -webkit-box-shadow: 0 0 0 0.2rem rgb(220, 53, 69, .25);
+    box-shadow: 0 0 0 0.2rem rgb(220, 53, 69, .25);
+}
+
+.has-danger-custom .invalid-feedback-custom{
+	display: block;
+}
+.invalid-feedback-custom{
+	display: none;
+    width: 100%;
+    margin-top: .25rem;
+    font-size: 80%;
+    color: #dc3545;
 }
