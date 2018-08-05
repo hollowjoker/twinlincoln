@@ -15,23 +15,26 @@
 								<button class="btn btn-info btn-lg" data-toggle="modal" data-target="#expenseModal">Add Expense</button>
 							</div>
 						</div>
-                        <hr>
-                        <h3>List of Expense</h3>
-                        <table class="table table-bordered table-striped" id="expenseTable">
-                            <thead>
-                                <tr>
-                                    <td>Date</td>
-                                    <td>Amount</td>
-                                    <td>Description</td>
-                                    <td>Transacted By</td>
-									<td>Action</td>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card my-2">
+			<div class="card-body">
+				<h3>List of Expense</h3>
+				<table class="table table-bordered table-striped" id="expenseTable">
+					<thead>
+						<tr>
+							<td>Date</td>
+							<td>Amount</td>
+							<td>Description</td>
+							<td>Transacted By</td>
+							<td>Action</td>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
     </div>
 
     <div class="modal fade" id="expenseModal" tabindex="-1" role="dialog">

@@ -15,26 +15,31 @@
                                 <a href="{{ route('product.create') }}" class="btn btn-info btn-lg">Add Product</a>
                             </div>
                         </div>
-                        <hr>
-                        <table class="table table-bordered table-striped table-heading table-hover" id="productTable">
-                            <thead>
-                                <tr>
-                                    <td>Category</td>
-                                    <td>Item Name</td>
-                                    <td>Description</td>
-                                    <td>Size</td>
-                                    <td>Qty</td>
-                                    <td>Price</td>
-                                    <td>Srp_Price</td>
-                                    <td></td>
-                                </tr>
-                            </thead>
-                        </table>
                     </div>
                 </div>
             </div>
         </div>
+                        
+        <div class="card my-2">
+            <div class="card-body">
+                <table class="table table-borderless table-hover table-striped" id="productTable">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Item Name</th>
+                            <th>Description</th>
+                            <th>Size</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                            <th>Srp_Price</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
     </div>
+</div>
 
     <div class="modal fade" id="importModal" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">

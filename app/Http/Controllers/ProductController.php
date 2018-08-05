@@ -124,7 +124,8 @@ class ProductController extends Controller
         $validations = [];
 
         $lastId = CF::model('Tbl_item_imported_transaction')->limit(1)->orderBy('id','desc')->get();
-        $transcode = 'PC'.str_pad(str_replace("PC","",$lastId[0]['trans_code']) + 1, 6, '0', STR_PAD_LEFT);
+        $lastIdNew = empty($lastId) ? $lastId[0]['trans_code'] : 0;
+        $transcode = 'PC'.str_pad(str_replace("PC","",$lastIdNew) + 1, 6, '0', STR_PAD_LEFT);
 
         foreach($request->item_name as $k => $each){
             $validations['tbl_category_id.'.$k] = 'required|filled';
