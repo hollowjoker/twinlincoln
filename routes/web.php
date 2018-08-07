@@ -27,7 +27,10 @@ Route::group(['prefix' => '/login', 'middleware' => ['web']], function(){
 });
 
 Route::group(['prefix' => '/dashboard', 'middleware' => ['web','admin'], 'guard'=>'admin'], function(){
-    Route::get('/{type?}','DashboardController@index')->name('dashboard');
+    Route::get('/','DashboardController@index')->name('dashboard');
+    Route::get('/getExpense','DashboardController@getExpense')->name('dashboard.getExpense');
+    Route::get('/getMonthlyIncome','DashboardController@getMonthlyIncome')->name('dashboard.getMonthlyIncome');
+    Route::get('/getWeeklyIncome','DashboardController@getWeeklyIncome')->name('dashboard.getWeeklyIncome');
     Route::post('/attendanceSave'.'DashboardController@attendanceSave')->name('dashboard.attendance_save');
 });
 
