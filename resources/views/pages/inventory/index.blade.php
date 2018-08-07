@@ -65,6 +65,7 @@
                             </tbody>
                         </table>
                         <h4>Total:</h4>
+                        <a href="{{ route('inventory.receipt') }}" class="btn btn-info">Print Receipt</a>
                     </div>
                 </div>
             </div>
