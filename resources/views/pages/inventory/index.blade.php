@@ -7,9 +7,11 @@
                     <div class="card-body">
                         <h3>Inventory</h3>
                             <span class="text-muted">This list is showing all of your Items</span>
-                        <hr>
-
-                        <table class="table table-bordered table-striped table-heading" id="inventoryTable">
+                    </div>
+                </div>
+                <div class="card my-2">
+                    <div class="card-body">
+                        <table class="table table-borderless table-hover table-striped" id="inventoryTable">
                             <thead>
                                 <tr>
                                     <th>Item Name</th>
@@ -45,9 +47,11 @@
                     <div class="card-body">
                         <h3>Cart</h3>
                             <span class="text-muted">This is your Customer Cart</span>
-                        <hr>
-
-                        <table class="table table-bordered table-striped table-heading">
+                    </div>
+                </div>
+                <div class="card my-2">
+                    <div class="card-body">
+                        <table id="customerCartTable" class="table table-bordered table-striped table-heading">
                             <thead>
                                 <tr>
                                     <th>Item Name</th>
@@ -56,8 +60,12 @@
                                     <th>Total</th>
                                 </tr>
                             </thead>
+                            <tbody>
+                            
+                            </tbody>
                         </table>
                         <h4>Total:</h4>
+                        <a href="{{ route('inventory.receipt') }}" class="btn btn-info">Print Receipt</a>
                     </div>
                 </div>
             </div>
@@ -107,6 +115,22 @@
             
             $('#sidenavToggler').click();
             getData();
+            
+            $('#addCartForm').unbind('submit');
+            $('#addCartForm').bind('submit', function(){
+                var customerTable = $('#customerCartTable');
+                var customerToAppend = 
+                                        '<tr>'+
+                                            '<td>'+1+'</td>'+
+                                            '<td>'+2+'</td>'+
+                                            '<td>'+3+'</td>'+
+                                            '<td>'+4+'</td>'+
+                                        '</tr>';
+                
+                customerTable.find('tbody').append(customerToAppend);
+                
+                return false;
+            });
         });
         
         function getData() {

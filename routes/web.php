@@ -55,6 +55,7 @@ Route::group(['prefix' => '/product', 'middleware' => ['web','admin'], 'guard' =
 });
 
 Route::group(['prefix' => '/inventory', 'middleware' => ['web','admin'], 'guard' => 'admin'], function(){
+    Route::get('/receipt','InventoryController@receipt')->name('inventory.receipt');
     Route::get('/{type?}','InventoryController@index')->name('inventory');
 });
 
