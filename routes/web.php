@@ -37,7 +37,7 @@ Route::group(['prefix' => '/dashboard', 'middleware' => ['web','admin'], 'guard'
 });
 
 Route::group(['prefix' => '/transaction', 'middleware' => ['web','admin'], 'guard'=>'admin'], function(){
-    Route::get('/','TransactionController@index')->name('transaction');
+    Route::get('/{type?}','TransactionController@index')->name('transaction');
 });
 // category
 Route::group(['prefix' => '/category', 'middleware' => ['web','admin'], 'guard' => 'admin'], function(){
