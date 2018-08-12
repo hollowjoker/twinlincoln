@@ -8,7 +8,7 @@
 						<div class="card-body-icon">
 							<i class="fa fa-fw fa-money"></i>
 						</div>
-						<div class="mr-5">Php. <span class="h1" id="monthlyIncome"></span></div>
+						<div class="mr-5">Php. <span class="h3" id="monthlyIncome"></span></div>
 					</div>
 					<a class="card-footer bg-white text-dark clearfix small z-1" href="#">
 						<span class="float-left">Monthly Income for {{ date('F') }}</span>
@@ -24,7 +24,7 @@
 						<div class="card-body-icon">
 							<i class="fa fa-fw fa-line-chart"></i>
 						</div>
-						<div class="mr-5">Php. <span class="h2" id="weeklyIncome"></span></div>
+						<div class="mr-5">Php. <span class="h3" id="weeklyIncome"></span></div>
 					</div>
 					<a class="card-footer bg-white text-dark clearfix small z-1" href="#">
 						<span class="float-left">Weekly Income for {{ date('M d,',strtotime('Monday this week')) }} - {{ date('d, Y', strtotime(date('Y-m-d',strtotime('Monday this week')).' + 6 day')) }} </span>
@@ -40,7 +40,7 @@
 						<div class="card-body-icon">
 							<i class="fa fa-fw fa-hand-o-down"></i>
 						</div>
-						<div class="mr-5">Php. <span class="h2" id="expenseCount"></span></div>
+						<div class="mr-5">Php. <span class="h3" id="expenseCount"></span></div>
 					</div>
 					<a class="card-footer bg-white text-dark clearfix small z-1" href="#">
 						<span class="float-left">Expense for {{ date('F') }} </span>
@@ -56,7 +56,7 @@
 						<div class="card-body-icon">
 							<i class="fa fa-fw fa-bicycle"></i>
 						</div>
-						<div class="mr-5"> <span class="h2" id=""></span></div>
+						<div class="mr-5"> <span class="h3" id="transactions"></span></div>
 					</div>
 					<a class="card-footer bg-white text-dark clearfix small z-1" href="#">
 						<span class="float-left">Total Transaction</span>
@@ -86,6 +86,8 @@
 			getExpense();
 			getMonthly();
 			getWeekly();
+			getTransactions();
+			getIncomeYearly();
 		});
 
 		function getExpense() {
@@ -116,6 +118,76 @@
 			}).done(function(result){
 				var parsedData = $.parseJSON(result);
 				$('#weeklyIncome').text(parsedData['weeklyIncomeSum']);
+			});
+		}
+
+		function getTransactions() {
+			$.ajax({
+				url : '/dashboard/getTransactions',
+				type : 'get'
+			}).done(function(result){
+				console.log(result);
+				var parsedData = $.parseJSON(result);
+				$('#transactions').text(parsedData['transactionCount']);
+			});
+		}
+
+		function getIncomeYearly() {
+			$.ajax({
+				url : '/dashboard/getIncomeYearly',
+				type : 'get',
+			}).done(function(result){
+				var parsedData = $.parseJSON(result);
+
+				console.log(parsedData);
+				var ctx = document.getElementById("myAreaChart");
+				var myLineChart = new Chart(ctx, {
+					type: 'line',
+					data: {
+						labels: parsedData['months'],
+						datasets: [{
+							label: "Sessions",
+							lineTension: 0.3,
+							backgroundColor: "#f5a55840",
+							borderColor: "#f5a558",
+							pointRadius: 5,
+							pointBackgroundColor: "#f5a558",
+							pointBorderColor: "rgba(255,255,255,0.8)",
+							pointHoverRadius: 5,
+							pointHoverBackgroundColor: "rgba(2,117,216,1)",
+							pointHitRadius: 20,
+							pointBorderWidth: 2,
+							data: parsedData['datas'],
+						}],
+					},
+					options: {
+						scales: {
+						xAxes: [{
+							time: {
+							unit: 'date'
+							},
+							gridLines: {
+							display: false
+							},
+							ticks: {
+							maxTicksLimit: 7
+							}
+						}],
+						yAxes: [{
+							ticks: {
+							min: 0,
+							maxTicksLimit: 5
+							},
+							gridLines: {
+							color: "rgba(0, 0, 0, .125)",
+							}
+						}],
+						},
+						legend: {
+						display: false
+						}
+					}
+				});
 			});
 		}
 	</script>

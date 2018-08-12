@@ -50,12 +50,18 @@ class LoginController extends Controller
         // $credentials = $credentials + ['status' => 'active'];
         $credentials = array_merge($credentials, ['status' => 'active']);
 
+        $data = [];
         if(Auth::guard('admin')->attempt($credentials)) {
-            return redirect()->intended('dashboard');
+            // return redirect()->intended('dashboard');
+            $data['type'] = 'success';
+            $data['message'] = 'Loging-in in a few seconds';
+
         } else {
-            return redirect()->intended('login');
+            // return redirect()->intended('login');
+            $data['type'] = 'error';
+            $data['message'] = 'Username or Password Invalid';
         }
-        return $credentials;
+        return $data;
     }
 
     public function logout() {

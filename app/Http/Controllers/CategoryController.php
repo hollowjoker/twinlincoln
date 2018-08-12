@@ -16,6 +16,14 @@ class CategoryController extends Controller
             $search = $request->search['value'];
             $start = $request->start;
             $length = $request->length;
+            $columns = array(
+                        'category_name',
+                        'type',
+                        'description',
+                        'id',
+                        'status',
+                        'status',
+                    );
 
             $category = Tbl_category::where('category_name','like','%'.$search.'%')
                                     ->orWhere('description','like','%'.$search.'%')
@@ -23,6 +31,7 @@ class CategoryController extends Controller
                                     ->orWhere('status','like','%'.$search.'%')
                                     ->offset($start)
                                     ->limit($length)
+                                    ->orderBy($columns[$request->order[0]['column']],$request->order[0]['dir'])
                                     ->get();
 
             $categoryCount = Tbl_category::where('category_name','like','%'.$search.'%')

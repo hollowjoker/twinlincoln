@@ -21,8 +21,9 @@ class ProductController extends Controller
                         'item_name',
                         'description',
                         'size',
+                        'qty',
                         'price',
-                        'spr_price',
+                        'srp_price',
                     );
 
             $products = CF::model('Tbl_items')
@@ -56,8 +57,8 @@ class ProductController extends Controller
                 $data[$k][] = $each['description'];
                 $data[$k][] = $each['size'];
                 $data[$k][] = $each['qty'];
-                $data[$k][] = $each['price'];
-                $data[$k][] = $each['srp_price'];
+                $data[$k][] = number_format($each['price'],2);
+                $data[$k][] = number_format($each['srp_price'],2);
                 $data[$k][] = '
                                 <button class="btn-sm btn-info" data-toggle="modal" data-target="#importModal" onclick="getProduct('.$each['id'].')">Import</button>
                                 <a href="/product/edit/'.$each['id'].'">
@@ -202,6 +203,7 @@ class ProductController extends Controller
             $data['message'] = $validator->errors();
         }
         else{
+            $itemData['total_item_buy'] += $request->qty;
             $itemData['qty'] += $request->qty;
 
             $itemData->update([
@@ -219,6 +221,7 @@ class ProductController extends Controller
                 'price' => $request->price,
                 'amount' => $request->amount,
             ]);
+
             
             $data['type'] = 'success';
             $data['message'] = 'Importing of product successful!';;

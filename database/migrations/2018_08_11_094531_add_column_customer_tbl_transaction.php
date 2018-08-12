@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColumnSoftDeleteExpense extends Migration
+class AddColumnCustomerTblTransaction extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddColumnSoftDeleteExpense extends Migration
      */
     public function up()
     {
-        Schema::table('Tbl_expenses', function (Blueprint $table) {
-            $table->softDeletes();
+        Schema::table('Tbl_transactions', function (Blueprint $table) {
+            $table->integer('tbl_customer_id')->after('transaction_no');
         });
     }
 
@@ -25,6 +25,8 @@ class AddColumnSoftDeleteExpense extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('Tbl_transactions', function (Blueprint $table) {
+            $table->dropColumn('tbl_customer_id');
+        }); 
     }
 }

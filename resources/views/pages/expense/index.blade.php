@@ -147,8 +147,9 @@
 			responsive : true,
 			searching : true,
 			autoWidth : false,
+			order : [[ 0, "desc" ]],
 			ajax : {
-				url : '/expense/api'
+				url : '/expense/api',
 			}
 		});
 	}

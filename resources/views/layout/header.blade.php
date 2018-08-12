@@ -15,6 +15,12 @@
                     <span class="nav-link-text">Dashboard</span>
                 </a>
             </li>
+            <li class="nav-item <?= (strpos($a, 'transaction') ? 'active' : '') ?>" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                <a class="nav-link" href="{{ route('transaction') }}">
+                    <i class="fa fa-fw fa-dashboard"></i>
+                    <span class="nav-link-text">Transaction</span>
+                </a>
+            </li>
             <li class="nav-item <?= (strpos($a, 'product') ? 'active' : '') ?>" data-toggle="tooltip" data-placement="right" title="Product">
                 <!-- <a class="nav-link nav-link-collapse collapsed" href="{{ route('product') }} #collapseComponents" data-toggle="collapse" data-parent="#exampleAccordion"> -->
                 <a class="nav-link nav-link-collapse collapsed" href="#collapseComponents" data-toggle="collapse" data-parent="#exampleAccordion">
@@ -70,7 +76,7 @@
             </li>
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Good Morning Admin!
+                    {{ date('a') == 'am' ? 'Good Morning' : 'Good Evening' }} Admin!
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
                     <a class="dropdown-item" href=" {{ route('login.logout') }} ">Logout</a>

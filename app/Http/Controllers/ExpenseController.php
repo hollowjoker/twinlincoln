@@ -18,6 +18,12 @@ class ExpenseController extends Controller
             $search = $request->search['value'];
             $start = $request->start;
             $length = $request->length;
+            $columns = array(
+                        'date_from',
+                        'amount',
+                        'description',
+                        'user_name',
+                    );
 
             $expense = CF::model('Tbl_expense')
                             ->join('Tbl_users','Tbl_users.id','Tbl_expenses.tbl_user_id')
@@ -27,7 +33,7 @@ class ExpenseController extends Controller
                             ->orWhere('description','like','%'.$search.'%')
                             ->offset($start)
                             ->limit($length)
-                            ->orderBy('id','DESC')
+                            ->orderBy($columns[$request->order[0]['column']],$request->order[0]['dir'])
                             ->get();
             
             $expenseCount = CF::model('Tbl_expense')
@@ -40,7 +46,7 @@ class ExpenseController extends Controller
 
             foreach($expense as $k => $each){
                 $data[$k][] = date('F d, Y', strtotime($each['date_from']));
-                $data[$k][] = $each['amount'];
+                $data[$k][] = number_format($each['amount'],2);
                 $data[$k][] = $each['description'];
                 $data[$k][] = $each['user_name'];
                 $data[$k][] = '';

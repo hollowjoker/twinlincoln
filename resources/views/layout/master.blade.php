@@ -36,6 +36,7 @@
     <script src="{!! asset('sbadmin/js/sb-admin.min.js') !!}"></script>
     <script src="{!! asset('sbadmin/js/sb-admin-datatables.min.js') !!}"></script>
     <script src="{!! asset('js/sweetalert.js') !!}"></script>
+    <script src="{!! asset('js/numeral.min.js') !!}"></script>
     <script src="{!! asset('js/js-me.js') !!}"></script>
 
     @yield('pageJs')

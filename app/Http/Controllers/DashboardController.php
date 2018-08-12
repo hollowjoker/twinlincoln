@@ -48,5 +48,28 @@ class DashboardController extends Controller
         echo json_encode($data);
     }
 
+    public function getTransactions() {
+        $data = [];
+        $transactionCount = CF::model('Tbl_transaction')->count();
+        $data['transactionCount'] = $transactionCount;
+        echo json_encode($data);
+    }
+
+    public function getIncomeYearly() {
+        $data = [];
+
+        for($i = 1; $i <= 12; $i++){
+            $month = date('Y-m', mktime(0,0,0, $i,1,date('Y')));
+            $monthName = date('M', mktime(0,0,0, $i,1,date('Y')));
+            
+            $itemData = CF::model('Tbl_transaction')
+                            ->where('date_trans','like','%'.$month.'%')
+                            ->sum('amount');
+            $data['months'][] = $monthName;
+            $data['datas'][] = $itemData;
+        }
+
+        echo json_encode($data);
+    }
 
 }

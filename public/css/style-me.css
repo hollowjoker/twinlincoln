@@ -8,6 +8,9 @@
 	src : url(../fonts/Raleway-Light.ttf);
 	src : url(../fonts/Raleway-Medium.ttf);
 }
+.text-600{
+	font-weight: 600;
+}
 table *{
 	transition : .1s;
 }
@@ -43,7 +46,8 @@ table *{
 	background-color: #ffc191;
 }
 #mainNav .navbar-collapse .navbar-nav>.nav-item.dropdown>.nav-link,
-#mainNav .navbar-brand
+#mainNav .navbar-brand,
+.text-default
 {
 	color: #f5a557;
 }
@@ -96,4 +100,19 @@ hr{
     margin-top: .25rem;
     font-size: 80%;
     color: #dc3545;
+}
+.to-rel{
+	position: relative;
+}
+.custom-delete{
+	opacity: 0;
+	visibility: hidden;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	transition: .2s;
+}
+.for-cart:hover .to-rel .custom-delete{
+	opacity: 1;
+	visibility: visible;
 }

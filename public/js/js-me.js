@@ -34,3 +34,7 @@ function removeValidation(thisForm){
 function checkNumeric(number){
 	return $.isNumeric(number) ? number : 0;
 }
+
+function numberFormat(number) {
+	return numeral(number).format('0,0');
+}

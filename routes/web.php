@@ -31,9 +31,14 @@ Route::group(['prefix' => '/dashboard', 'middleware' => ['web','admin'], 'guard'
     Route::get('/getExpense','DashboardController@getExpense')->name('dashboard.getExpense');
     Route::get('/getMonthlyIncome','DashboardController@getMonthlyIncome')->name('dashboard.getMonthlyIncome');
     Route::get('/getWeeklyIncome','DashboardController@getWeeklyIncome')->name('dashboard.getWeeklyIncome');
+    Route::get('/getTransactions','DashboardController@getTransactions')->name('dashboard.getTransactions');
+    Route::get('/getIncomeYearly','DashboardController@getIncomeYearly')->name('dashboard.getIncomeYearly');
     Route::post('/attendanceSave'.'DashboardController@attendanceSave')->name('dashboard.attendance_save');
 });
 
+Route::group(['prefix' => '/transaction', 'middleware' => ['web','admin'], 'guard'=>'admin'], function(){
+    Route::get('/','TransactionController@index')->name('transaction');
+});
 // category
 Route::group(['prefix' => '/category', 'middleware' => ['web','admin'], 'guard' => 'admin'], function(){
     Route::post('/store','CategoryController@store')->name('category.store');
@@ -55,8 +60,9 @@ Route::group(['prefix' => '/product', 'middleware' => ['web','admin'], 'guard' =
 });
 
 Route::group(['prefix' => '/inventory', 'middleware' => ['web','admin'], 'guard' => 'admin'], function(){
-    Route::get('/receipt','InventoryController@receipt')->name('inventory.receipt');
+    Route::get('/receipt/{code}','InventoryController@receipt')->name('inventory.receipt');
     Route::get('/{type?}','InventoryController@index')->name('inventory');
+    Route::post('/store/{type?}','InventoryController@store')->name('inventory.store');
 });
 
 // expense
